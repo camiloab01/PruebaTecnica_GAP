@@ -22,5 +22,15 @@ namespace SuperZapatos_Client.Http_Helpers
                 );
             }
         }
+
+        public async Task<List<ArticleModel>> GetArticlesByStoreAsync(int? storeId)
+        {
+            using (HttpClient httpClient = new HttpClient())
+            {
+                return JsonConvert.DeserializeObject<List<ArticleModel>>(
+                    await httpClient.GetStringAsync(baseUri+"/stores/"+storeId)
+                );
+            }
+        }
     }
 }

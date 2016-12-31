@@ -23,6 +23,12 @@ namespace SuperZapatos_Client.Controllers
             return View(await httpHelper.GetArticlesAsync());
         }
 
+        // GET: Articles
+        public async Task<ActionResult> ByStore(int? storeId)
+        {
+            return View("Index", await httpHelper.GetArticlesByStoreAsync(storeId));
+        }
+
         // GET: Articles/Details/5
         public async Task<ActionResult> Details(int? id)
         {

@@ -149,6 +149,26 @@ namespace SuperZapatos.Controllers
             return Ok(articleDTO);
         }
 
+        [ResponseType(typeof(ArticleDTO))]
+        [Route("services/Articles/Stores/{storeId}")]
+        public IQueryable<ArticleDTO> GetArticlesByStore(int storeId)
+        {
+            var articlesDTO = from a in db.Articles.Include(a => a.Store)
+                              where a.Store.Id==storeId
+                              select new ArticleDTO()
+                              {
+                                  Id = a.Id,
+                                  Name = a.Name,
+                                  Description = a.Description,
+                                  Price = a.Price,
+                                  Total_in_shelf = a.Total_in_shelf,
+                                  Total_in_vault = a.Total_in_vault,
+                                  Store_name = a.Store.Name
+                              };
+
+            return articlesDTO;
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
