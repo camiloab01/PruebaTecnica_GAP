@@ -8,17 +8,19 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SuperZapatos_Client.Models;
+using SuperZapatos_Client.Http_Helpers;
 
 namespace SuperZapatos_Client.Controllers
 {
     public class ArticlesController : Controller
     {
         private SuperZapatos_ClientContext db = new SuperZapatos_ClientContext();
+        private Article_HttpHelper httpHelper = new Article_HttpHelper();
 
         // GET: Articles
         public async Task<ActionResult> Index()
         {
-            return View(await db.ArticleModels.ToListAsync());
+            return View(await httpHelper.GetArticlesAsync());
         }
 
         // GET: Articles/Details/5
