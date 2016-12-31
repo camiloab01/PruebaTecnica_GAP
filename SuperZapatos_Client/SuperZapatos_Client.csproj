@@ -220,7 +220,12 @@
     <Content Include="Views\Articles\Edit.cshtml" />
     <Content Include="Views\Articles\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\SuperZapatos_API\SuperZapatos_API.csproj">
+      <Project>{6ff715c9-61bf-48ee-999a-40680550f871}</Project>
+      <Name>SuperZapatos_API</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

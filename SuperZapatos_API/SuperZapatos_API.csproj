@@ -124,6 +124,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="BasicAuthentication\Filters\BasicAuthentication.cs" />
+    <Compile Include="BasicAuthentication\Filters\HttpAuthenticationChallengeContextExtensions.cs" />
+    <Compile Include="BasicAuthentication\Results\AddChallengeOnUnauthorizedResult.cs" />
+    <Compile Include="BasicAuthentication\Results\AuthenticationFailureResult.cs" />
     <Compile Include="Controllers\ArticlesController.cs" />
     <Compile Include="Controllers\StoresController.cs" />
     <Compile Include="Global.asax.cs">
