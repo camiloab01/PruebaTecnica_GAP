@@ -4196,6 +4196,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
   padding: 15px 15px;
   font-size: 18px;
   line-height: 20px;
+  color: white;
 }
 
 .navbar-brand:hover,
@@ -4501,8 +4502,8 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-inverse {
-  background-color: #222222;
-  border-color: #080808;
+  background-color: #9e0d0d;
+  border-color: #9e0d0d;
 }
 
 .navbar-inverse .navbar-brand {
@@ -4934,7 +4935,7 @@ a.list-group-item.active > .badge,
   font-weight: 200;
   line-height: 2.1428571435;
   color: inherit;
-  background-color: #eeeeee;
+  background-color: rgba(66, 139, 202, 0.46);
 }
 
 .jumbotron h1 {
