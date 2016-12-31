@@ -31,11 +31,15 @@ namespace SuperZapatos_Client.Http_Helpers
 
         public async Task<List<ArticleModel>> GetArticlesByStoreAsync(int? storeId)
         {
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, baseUri + "/stores/" + storeId);
+            request.Headers.Authorization = CreateBasicCredentials("my_user", "my_password");
+
             using (HttpClient httpClient = new HttpClient())
             {
-                return JsonConvert.DeserializeObject<List<ArticleModel>>(
-                    await httpClient.GetStringAsync(baseUri+"/stores/"+storeId)
-                );
+                HttpResponseMessage response = await httpClient.SendAsync(request);
+                var result = await response.Content.ReadAsStringAsync();
+
+                return JsonConvert.DeserializeObject<List<ArticleModel>>(result);
             }
         }
 

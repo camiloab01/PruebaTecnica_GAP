@@ -11,9 +11,12 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using SuperZapatos_API.Models;
 using SuperZapatos_API.Models.DTO;
+using BasicAuthentication.Filters;
 
 namespace SuperZapatos_API.Controllers
 {
+    [BasicAuthentication]
+    [Authorize]
     public class StoresController : ApiController
     {
         private SuperZapatos_APIContext db = new SuperZapatos_APIContext();
