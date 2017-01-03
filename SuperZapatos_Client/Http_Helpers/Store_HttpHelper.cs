@@ -7,7 +7,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web;
+using System.Web.Script.Serialization;
 
 namespace SuperZapatos_Client.Http_Helpers
 {
@@ -26,6 +26,51 @@ namespace SuperZapatos_Client.Http_Helpers
                 var result = await response.Content.ReadAsStringAsync();
 
                 return JsonConvert.DeserializeObject<List<StoreModel>>(result);
+            }
+        }
+
+        public async Task<StoreModel> GetStoreAsync(int? id)
+        {
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, baseUri + "/" + id);
+            request.Headers.Authorization = CreateBasicCredentials("my_user", "my_password");
+
+            using (HttpClient httpClient = new HttpClient())
+            {
+                HttpResponseMessage response = await httpClient.SendAsync(request);
+                var result = await response.Content.ReadAsStringAsync();
+
+                return JsonConvert.DeserializeObject<StoreModel>(result);
+            }
+        }
+
+        public async Task<StoreModel> CreateStoresAsync(StoreModel storeModel)
+        {
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, baseUri);
+            request.Headers.Authorization = CreateBasicCredentials("my_user", "my_password");
+
+            var json = new JavaScriptSerializer().Serialize(storeModel);
+            request.Content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            using (HttpClient httpClient = new HttpClient())
+            {
+                HttpResponseMessage response = await httpClient.SendAsync(request);
+                var result = await response.Content.ReadAsStringAsync();
+
+                return JsonConvert.DeserializeObject<StoreModel>(result);
+            }
+        }
+
+        public async Task<StoreModel> DeleteStoresAsync(int? id)
+        {
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Delete, baseUri + "/" + id);
+            request.Headers.Authorization = CreateBasicCredentials("my_user", "my_password");
+            
+            using (HttpClient httpClient = new HttpClient())
+            {
+                HttpResponseMessage response = await httpClient.SendAsync(request);
+                var result = await response.Content.ReadAsStringAsync();
+
+                return JsonConvert.DeserializeObject<StoreModel>(result);
             }
         }
 

@@ -6,7 +6,7 @@
 }
 
 <h2>Index</h2>
-
+<p>@Html.ActionLink("Crear Tienda", "Create", "Stores")</p>
 <table class="table">
     <tr>
         <th>
@@ -28,6 +28,9 @@
         </td>
         <td>
             @Html.ActionLink("Ver Artículos", "ByStore", "Articles", new { storeId = item.Id }, null)
+        </td>
+        <td>
+            @Html.ActionLink("Borrar Tienda", "Delete", "Stores", new { id = item.Id }, null)
         </td>
     </tr>
 }

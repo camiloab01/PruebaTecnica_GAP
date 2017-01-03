@@ -53,8 +53,7 @@ namespace SuperZapatos_Client.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.StoreModels.Add(storeModel);
-                await db.SaveChangesAsync();
+                await httpHelper.CreateStoresAsync(storeModel);
                 return RedirectToAction("Index");
             }
 
@@ -99,7 +98,7 @@ namespace SuperZapatos_Client.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            StoreModel storeModel = await db.StoreModels.FindAsync(id);
+            StoreModel storeModel = await httpHelper.GetStoreAsync(id);
             if (storeModel == null)
             {
                 return HttpNotFound();
@@ -112,9 +111,7 @@ namespace SuperZapatos_Client.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            StoreModel storeModel = await db.StoreModels.FindAsync(id);
-            db.StoreModels.Remove(storeModel);
-            await db.SaveChangesAsync();
+            await httpHelper.DeleteStoresAsync(id);
             return RedirectToAction("Index");
         }
 
