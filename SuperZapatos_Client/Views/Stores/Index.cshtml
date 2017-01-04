@@ -32,7 +32,14 @@
         <td>
             @Html.ActionLink("Borrar Tienda", "Delete", "Stores", new { id = item.Id }, null)
         </td>
+        <td>
+            @Html.ActionLink("Editar Tienda", "Edit", "Stores", new { id = item.Id }, null)
+        </td>
     </tr>
 }
 
 </table>
+
+<div>
+    @Html.ActionLink("Volver", "Index", "Home")
+</div>

@@ -59,8 +59,7 @@ namespace SuperZapatos_Client.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.ArticleModels.Add(articleModel);
-                await db.SaveChangesAsync();
+                await httpHelper.CreateArticleAsync(articleModel);
                 return RedirectToAction("Index");
             }
 
@@ -74,7 +73,7 @@ namespace SuperZapatos_Client.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ArticleModel articleModel = await db.ArticleModels.FindAsync(id);
+            ArticleModel articleModel = await httpHelper.GetArticleAsync(id);
             if (articleModel == null)
             {
                 return HttpNotFound();
@@ -87,12 +86,11 @@ namespace SuperZapatos_Client.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Name,Description,Price,Total_in_shelf,Total_in_vault,Store_name")] ArticleModel articleModel)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,Name,Description,Price,Total_in_shelf,Total_in_vault,Store")] ArticleModel articleModel)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(articleModel).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                await httpHelper.EditArticleAsync(articleModel);
                 return RedirectToAction("Index");
             }
             return View(articleModel);
@@ -105,7 +103,7 @@ namespace SuperZapatos_Client.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ArticleModel articleModel = await db.ArticleModels.FindAsync(id);
+            ArticleModel articleModel = await httpHelper.GetArticleAsync(id);
             if (articleModel == null)
             {
                 return HttpNotFound();
@@ -118,9 +116,7 @@ namespace SuperZapatos_Client.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            ArticleModel articleModel = await db.ArticleModels.FindAsync(id);
-            db.ArticleModels.Remove(articleModel);
-            await db.SaveChangesAsync();
+            await httpHelper.DeleteArticleAsync(id);
             return RedirectToAction("Index");
         }
 

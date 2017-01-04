@@ -6,26 +6,26 @@
 }
 
 <h2>Index</h2>
-
+<p>@Html.ActionLink("Crear Artículo", "Create", "Articles")</p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            Artículo
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Description)
+            Descripción
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Price)
+            Precio
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Total_in_shelf)
+            Unidades en exposición
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Total_in_vault)
+            Unidades en almacén
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Store_name)
+            Tienda
         </th>
         <th></th>
     </tr>
@@ -48,9 +48,19 @@
             @Html.DisplayFor(modelItem => item.Total_in_vault)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Store_name)
+            @Html.DisplayFor(modelItem => item.Store.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Borrar Artículo", "Delete", "Articles", new { id = item.Id }, null)
+        </td>
+        <td>
+            @Html.ActionLink("Editar Artículo", "Edit", "Articles", new { id = item.Id }, null)
         </td>
     </tr>
 }
 
 </table>
+
+<div>
+    @Html.ActionLink("Volver", "Index", "Home")
+</div>

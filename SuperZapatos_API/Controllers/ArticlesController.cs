@@ -33,7 +33,7 @@ namespace SuperZapatos.Controllers
                                   Price = a.Price,
                                   Total_in_shelf = a.Total_in_shelf,
                                   Total_in_vault = a.Total_in_vault,
-                                  Store_name = a.Store.Name
+                                  Store = a.Store
                               };
 
             return articlesDTO;
@@ -58,7 +58,7 @@ namespace SuperZapatos.Controllers
                 Price = article.Price,
                 Total_in_shelf = article.Total_in_shelf,
                 Total_in_vault = article.Total_in_vault,
-                Store_name = article.Store == null ? "Not defined" : article.Store.Name
+                Store = article.Store
             };
 
             return Ok(articleDTO);
@@ -119,7 +119,7 @@ namespace SuperZapatos.Controllers
                 Price = article.Price,
                 Total_in_shelf = article.Total_in_shelf,
                 Total_in_vault = article.Total_in_vault,
-                Store_name = article.Store == null ? "Not defined" : article.Store.Name
+                Store = article.Store
             };
 
             return CreatedAtRoute("DefaultApi", new { id = article.Id }, articleDTO);
@@ -146,7 +146,7 @@ namespace SuperZapatos.Controllers
                 Price = article.Price,
                 Total_in_shelf = article.Total_in_shelf,
                 Total_in_vault = article.Total_in_vault,
-                Store_name = article.Store == null ? "Not defined" : article.Store.Name
+                Store = article.Store
             };
 
             return Ok(articleDTO);
@@ -166,7 +166,7 @@ namespace SuperZapatos.Controllers
                                   Price = a.Price,
                                   Total_in_shelf = a.Total_in_shelf,
                                   Total_in_vault = a.Total_in_vault,
-                                  Store_name = a.Store.Name
+                                  Store = a.Store
                               };
 
             return articlesDTO;

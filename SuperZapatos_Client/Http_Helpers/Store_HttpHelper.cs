@@ -60,11 +60,28 @@ namespace SuperZapatos_Client.Http_Helpers
             }
         }
 
-        public async Task<StoreModel> DeleteStoresAsync(int? id)
+        public async Task<StoreModel> DeleteStoreAsync(int? id)
         {
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Delete, baseUri + "/" + id);
             request.Headers.Authorization = CreateBasicCredentials("my_user", "my_password");
             
+            using (HttpClient httpClient = new HttpClient())
+            {
+                HttpResponseMessage response = await httpClient.SendAsync(request);
+                var result = await response.Content.ReadAsStringAsync();
+
+                return JsonConvert.DeserializeObject<StoreModel>(result);
+            }
+        }
+
+        public async Task<StoreModel> EditStoreAsync(StoreModel storeModel)
+        {
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Put, baseUri + "/" + storeModel.Id);
+            request.Headers.Authorization = CreateBasicCredentials("my_user", "my_password");
+
+            var json = new JavaScriptSerializer().Serialize(storeModel);
+            request.Content = new StringContent(json, Encoding.UTF8, "application/json");
+
             using (HttpClient httpClient = new HttpClient())
             {
                 HttpResponseMessage response = await httpClient.SendAsync(request);

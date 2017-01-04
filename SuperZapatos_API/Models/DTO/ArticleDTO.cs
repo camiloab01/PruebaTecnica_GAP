@@ -40,6 +40,6 @@ namespace SuperZapatos_API.Models.DTO
         /// <summary>
         /// Store name where the article is
         /// </summary>
-        public String Store_name { get; set; }
+        public Store Store { get; set; }
     }
 }
