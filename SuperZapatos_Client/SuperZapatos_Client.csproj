@@ -165,6 +165,7 @@
     <Compile Include="Http_Helpers\Article_HttpHelper.cs" />
     <Compile Include="Http_Helpers\Store_HttpHelper.cs" />
     <Compile Include="Models\ArticleModel.cs" />
+    <Compile Include="Models\ArticleStoreViewModel.cs" />
     <Compile Include="Models\StoreModel.cs" />
     <Compile Include="Models\SuperZapatos_ClientContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

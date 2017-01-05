@@ -15,18 +15,19 @@ namespace SuperZapatos_Client.Controllers
     public class ArticlesController : Controller
     {
         private SuperZapatos_ClientContext db = new SuperZapatos_ClientContext();
-        private Article_HttpHelper httpHelper = new Article_HttpHelper();
+        private Article_HttpHelper articleHttpHelper = new Article_HttpHelper();
+        private Store_HttpHelper storeHttpHelper = new Store_HttpHelper();
 
         // GET: Articles
         public async Task<ActionResult> Index()
         {
-            return View(await httpHelper.GetArticlesAsync());
+            return View(await articleHttpHelper.GetArticlesAsync());
         }
 
         // GET: Articles
         public async Task<ActionResult> ByStore(int? storeId)
         {
-            return View("Index", await httpHelper.GetArticlesByStoreAsync(storeId));
+            return View("Index", await articleHttpHelper.GetArticlesByStoreAsync(storeId));
         }
 
         // GET: Articles/Details/5
@@ -47,7 +48,15 @@ namespace SuperZapatos_Client.Controllers
         // GET: Articles/Create
         public ActionResult Create()
         {
-            return View();
+            var model = new ArticleStoreViewModel();
+
+            model.Stores = storeHttpHelper.GetStoresAsync().Result.ToList().Select(x => new SelectListItem()
+            {
+                Value = x.Id.ToString(),
+                Text = x.Name
+            });
+
+            return View(model);
         }
 
         // POST: Articles/Create
@@ -59,7 +68,7 @@ namespace SuperZapatos_Client.Controllers
         {
             if (ModelState.IsValid)
             {
-                await httpHelper.CreateArticleAsync(articleModel);
+                await articleHttpHelper.CreateArticleAsync(articleModel);
                 return RedirectToAction("Index");
             }
 
@@ -73,7 +82,7 @@ namespace SuperZapatos_Client.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ArticleModel articleModel = await httpHelper.GetArticleAsync(id);
+            ArticleModel articleModel = await articleHttpHelper.GetArticleAsync(id);
             if (articleModel == null)
             {
                 return HttpNotFound();
@@ -90,7 +99,7 @@ namespace SuperZapatos_Client.Controllers
         {
             if (ModelState.IsValid)
             {
-                await httpHelper.EditArticleAsync(articleModel);
+                await articleHttpHelper.EditArticleAsync(articleModel);
                 return RedirectToAction("Index");
             }
             return View(articleModel);
@@ -103,7 +112,7 @@ namespace SuperZapatos_Client.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ArticleModel articleModel = await httpHelper.GetArticleAsync(id);
+            ArticleModel articleModel = await articleHttpHelper.GetArticleAsync(id);
             if (articleModel == null)
             {
                 return HttpNotFound();
@@ -116,7 +125,7 @@ namespace SuperZapatos_Client.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            await httpHelper.DeleteArticleAsync(id);
+            await articleHttpHelper.DeleteArticleAsync(id);
             return RedirectToAction("Index");
         }
 
